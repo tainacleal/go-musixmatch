@@ -18,6 +18,7 @@ const (
 var Key string
 var httpClient = &http.Client{Timeout: defaultHTTPTimeout}
 
+// BackendService is an interface to be implemented by MusixMatch clients
 type BackendService interface {
 	Call(method string, path string, params string, v *Return) error
 }
@@ -86,11 +87,6 @@ type Message struct {
 // Header contains the Status Code returned from the API request
 type Header struct {
 	StatusCode int `json:"status_code"`
-}
-
-// NewReturn returns a typical Return type with a given interface
-func NewReturn() *Return {
-	return &Return{}
 }
 
 // CheckStatusCode checks for response errors
