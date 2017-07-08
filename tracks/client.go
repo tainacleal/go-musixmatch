@@ -88,6 +88,7 @@ func (c Client) GetLyric(params *musixmatch.TrackLyricsParams) (*musixmatch.Lyri
 	v := &musixmatch.Return{}
 	method := "track.lyrics.get"
 
+	// if Artist and TrackTitle are passed, use matcher.lyrics.get instead
 	if params.Artist != nil && params.TrackTitle != nil {
 		method = "matcher.lyrics.get"
 	}
