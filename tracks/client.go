@@ -17,9 +17,18 @@ func getClient() Client {
 	return Client{Backend: musixmatch.GetBackend(), Key: musixmatch.Key}
 }
 
-// Get uses the backend client to retrieve a single track by ID.
-func Get(params *musixmatch.TrackGetParams) (*musixmatch.Tracks, error) {
-	return getClient().Get(params)
+// Get uses the backend client to retrieve a single track by MBID.
+func GetByMBID(mbid string) (*musixmatch.Tracks, error) {
+	return getClient().Get(&musixmatch.TrackGetParams{
+		MBID: musixmatch.String(mbid),
+	})
+}
+
+// GetByID returns a single track by ID.
+func GetByID(id int64) (*musixmatch.Tracks, error) {
+	return getClient().Get(&musixmatch.TrackGetParams{
+		ID: musixmatch.Int64(id),
+	})
 }
 
 // Get hits track.get endpoint and returns a single track by ID.
@@ -60,9 +69,16 @@ func (c Client) Search(params *musixmatch.TrackListParams) (*musixmatch.TrackLis
 	return trackList, json.Unmarshal(*v.Message.Body, &trackList)
 }
 
-// GetLyric uses the backed client to retrieve a single track lyric info.
+// GetLyric uses the backend client to retrieve a single track lyric info.
 func GetLyric(params *musixmatch.TrackLyricsParams) (*musixmatch.LyricInfo, error) {
 	return getClient().GetLyric(params)
+}
+
+// GetLyricByID retrieves a track lyric by ID.
+func GetLyricByID(id int64) (*musixmatch.LyricInfo, error) {
+	return getClient().GetLyric(&musixmatch.TrackLyricsParams{
+		ID: musixmatch.Int64(id),
+	})
 }
 
 // GetLyric hits track.lyrics.get endpoint and returns information about where to request the lyrics for a specific track.

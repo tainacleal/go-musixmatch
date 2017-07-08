@@ -10,9 +10,7 @@ import (
 
 func main() {
 	musixmatch.Key = config.Key
-	track, err := tracks.Get(&musixmatch.TrackGetParams{
-		ID: musixmatch.Int64(15445186),
-	})
+	track, err := tracks.GetByID(15445186)
 	if err != nil {
 		panic(err)
 	}
@@ -32,9 +30,7 @@ func main() {
 	}
 	fmt.Println()
 
-	lyric, err := tracks.GetLyric(&musixmatch.TrackLyricsParams{
-		ID: musixmatch.Int64(15445186),
-	})
+	lyric, err := tracks.GetLyricByID(15445186)
 	if err != nil {
 		panic(err)
 	}
